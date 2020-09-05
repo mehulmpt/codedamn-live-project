@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const user_1 = __importDefault(require("./models/user"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const websocket_1 = __importDefault(require("./websocket"));
 const app = express_1.default();
 const JWT_SECRET_TOKEN = 'sdifHghghdgfhjg&%^@#&^!*@&*@#&^&#^&ysduytruweiyhjfkhdsfjsdgfhjsdgqwuejgdbdshjfgj32234';
 // mongoose.connect('mongodb://localhost:27017/codedamn-live')
@@ -57,3 +58,4 @@ app.post('/api/login', async (req, res) => {
     return res.json({ status: 'ok', data: payload });
 });
 app.listen(1337);
+websocket_1.default();

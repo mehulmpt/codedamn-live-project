@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import './style.css'
 import { apiCall } from '../../utility'
+import { useHistory } from 'react-router-dom'
 
 export default function Register() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+
+	const history = useHistory()
 
 	async function loginUser() {
 		const res = await apiCall('/api/login', { email, password })
@@ -14,6 +17,7 @@ export default function Register() {
 			// TODO: Bad practice -> refresh tokens
 			localStorage.setItem('token', res.data)
 			alert('You are logged in')
+			history.push('/chat')
 		} else {
 			alert(res.error)
 		}
