@@ -26,9 +26,6 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(cors_1.default());
 }
 app.use(body_parser_1.default.json());
-app.get('/', (req, res) => {
-    res.sendFile('');
-});
 app.post('/api/register', async (req, res) => {
     console.log(req.body);
     const { email, password } = req.body;
