@@ -24,6 +24,8 @@ function processMessage(payload: string) {
 	}
 }
 
+const HOST = location.hostname + ':1338'
+
 export default function Chat() {
 	const [chatMessage, setChatMessage] = useState('')
 	const [chatMessages, setChatMessages] = useState<Message[]>([])
@@ -42,7 +44,7 @@ export default function Chat() {
 	}
 
 	useEffect(() => {
-		const ws = new WebSocket('ws://localhost:1338/' + localStorage.getItem('token'))
+		const ws = new WebSocket(`ws://${HOST}/` + localStorage.getItem('token'))
 
 		ws.addEventListener(
 			'open',
