@@ -1,20 +1,14 @@
 import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import './style.css'
+import { apiCall } from '../../utility'
 
 export default function Register() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
 	async function registerUser() {
-		const res = await fetch('http://localhost:1337/api/register', {
-			method: 'POST',
-			body: JSON.stringify({
-				email,
-				password
-			})
-		}).then((t) => t.json())
-
+		const res = await apiCall('/api/register', { email, password })
 		console.log(res)
 	}
 
@@ -27,13 +21,13 @@ export default function Register() {
 					placeholder="you@awesome.com"
 					label="Your Email"
 					value={email}
-					onChange={(e) => setEmail(e.target.value)}
+					onChange={(e: any) => setEmail(e.target.value)}
 					variant="outlined"
 				/>
 				<TextField
 					fullWidth
 					value={password}
-					onChange={(e) => setPassword(e.target.value)}
+					onChange={(e: any) => setPassword(e.target.value)}
 					placeholder="p@$$w0rd"
 					label="Password"
 					variant="outlined"
