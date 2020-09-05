@@ -5,11 +5,11 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import User from './models/user'
 import jwt from 'jsonwebtoken'
-import setupWebSocketServer from './websocket'
-const app = express()
 
-const JWT_SECRET_TOKEN =
-	'sdifHghghdgfhjg&%^@#&^!*@&*@#&^&#^&ysduytruweiyhjfkhdsfjsdgfhjsdgqwuejgdbdshjfgj32234'
+// initializes websocket server
+import './websocket'
+import { JWT_SECRET_TOKEN } from './utilities'
+const app = express()
 
 // mongoose.connect('mongodb://localhost:27017/codedamn-live')
 
@@ -77,4 +77,3 @@ app.post('/api/login', async (req, res) => {
 })
 
 app.listen(1337)
-setupWebSocketServer()

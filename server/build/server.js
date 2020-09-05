@@ -10,9 +10,10 @@ const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const user_1 = __importDefault(require("./models/user"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const websocket_1 = __importDefault(require("./websocket"));
+// initializes websocket server
+require("./websocket");
+const utilities_1 = require("./utilities");
 const app = express_1.default();
-const JWT_SECRET_TOKEN = 'sdifHghghdgfhjg&%^@#&^!*@&*@#&^&#^&ysduytruweiyhjfkhdsfjsdgfhjsdgqwuejgdbdshjfgj32234';
 // mongoose.connect('mongodb://localhost:27017/codedamn-live')
 mongoose_1.default.connect('mongodb://admin:0O3lP2MRRmIVZ2WPlUaOPvIiNVDpZZh0aDBisdB2nQtPXB9Ao2oTgRMvG1F4Z6ayDcbj0W0wdkMh4tO25TF7XO7Y@localhost:27017/codedamn-live?authSource=admin');
 if (process.env.NODE_ENV !== 'production') {
@@ -54,8 +55,7 @@ app.post('/api/login', async (req, res) => {
     // 1. JWT tokens directly
     // 2. localStorage
     // Refresh token -> httpOnly cookie
-    const payload = jsonwebtoken_1.default.sign({ email }, JWT_SECRET_TOKEN); // 10-15 minutes
+    const payload = jsonwebtoken_1.default.sign({ email }, utilities_1.JWT_SECRET_TOKEN); // 10-15 minutes
     return res.json({ status: 'ok', data: payload });
 });
 app.listen(1337);
-websocket_1.default();
