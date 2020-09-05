@@ -1,14 +1,11 @@
 import WebSocket from 'ws'
 import { processMessage, CustomWebSocket, JWT_SECRET_TOKEN } from './utilities'
-import Message from './models/messages'
-import { v4 as uuid } from 'uuid'
 import http from 'http'
 import jwt from 'jsonwebtoken'
+import { clients, setClients, broadCastMessage, retrieveAndSendMessages } from './wsfunc'
 
 const server = http.createServer()
 const wss = new WebSocket.Server({ noServer: true })
-
-let clients: CustomWebSocket[] = []
 
 wss.on('connection', function connection(ws: CustomWebSocket) {
 	// a single client has joined
@@ -16,37 +13,28 @@ wss.on('connection', function connection(ws: CustomWebSocket) {
 	clients.push(ws)
 
 	ws.on('close', () => {
-		clients = clients.filter((generalSocket) => generalSocket.connectionID !== ws.connectionID)
+		setClients(
+			clients.filter((generalSocket) => generalSocket.connectionID !== ws.connectionID)
+		)
 	})
 
 	ws.on('message', function incoming(payload) {
 		const message = processMessage(payload.toString())
-		if (!message || message.intent !== 'chat') {
+		if (!message) {
 			// corrupted message from client
 			// ignore
 			return
 		}
 
-		console.log(message)
+		console.log(message, 'is the message')
 
-		const newMessage = new Message({
-			email: ws.connectionID,
-			message: message.message,
-			date: Date.now()
-		})
+		if (message.intent === 'chat') {
+			broadCastMessage(message, ws)
+		} else if (message.intent === 'old-messages') {
+			const count = message.count
+			if (!count) return
 
-		newMessage.save()
-
-		// broadcast it to all clients
-		for (let i = 0; i < clients.length; i++) {
-			const client = clients[i]
-			client.send(
-				JSON.stringify({
-					message: message.message,
-					user: ws.connectionID,
-					intent: 'chat'
-				})
-			)
+			retrieveAndSendMessages(ws, count)
 		}
 	})
 })
