@@ -2,9 +2,6 @@
 set -e
 user="ubuntu"
 
-ls -lah;
-pwd;
-
 rm -rf .git
 rm -rf .gitignore
 git config --global user.email "mehulmpt@gmail.com"
@@ -18,5 +15,5 @@ git push --force production master
 
 ssh $user@$AWS_HOST "cd ~/webapp && \
 pm2 kill
-pm2 start /home/ubuntu/webapp/server/build/server.js
+NODE_ENV=production pm2 start /home/ubuntu/webapp/server/build/server.js
 exit"

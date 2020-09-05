@@ -16,7 +16,7 @@ const utilities_1 = require("./utilities");
 const app = express_1.default();
 const PRODUCTION = process.env.NODE_ENV === 'production';
 if (PRODUCTION) {
-    app.use('/', express_1.default.static('/home/ubuntu/webapp/client/build'));
+    app.use(express_1.default.static('/home/ubuntu/webapp/client/build'));
     mongoose_1.default.connect('mongodb://localhost:27017/codedamn-live');
 }
 else {

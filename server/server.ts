@@ -13,7 +13,7 @@ const app = express()
 const PRODUCTION = process.env.NODE_ENV === 'production'
 
 if (PRODUCTION) {
-	app.use('/', express.static('/home/ubuntu/webapp/client/build'))
+	app.use(express.static('/home/ubuntu/webapp/client/build'))
 	mongoose.connect('mongodb://localhost:27017/codedamn-live')
 } else {
 	mongoose.connect(
