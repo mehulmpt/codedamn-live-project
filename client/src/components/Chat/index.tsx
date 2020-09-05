@@ -24,7 +24,7 @@ function processMessage(payload: string) {
 	}
 }
 
-const HOST = location.hostname + ':1338'
+const HOST = window.location.hostname + ':1338'
 
 export default function Chat() {
 	const [chatMessage, setChatMessage] = useState('')
