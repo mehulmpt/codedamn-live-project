@@ -13,12 +13,12 @@ jobs:
               with:
                   node-version: '14.8.0'
             - name: Build Server
-            env:
-                NODE_ENV: production
-            run: |
-                cd server
-                yarn install --frozen-lockfile
-                tsc
+                env:
+                    NODE_ENV: production
+                run: |
+                  cd server
+                  yarn install --frozen-lockfile
+                  tsc
             - name: Build Client
               env:
                   NODE_ENV: development
