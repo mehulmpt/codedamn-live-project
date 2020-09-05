@@ -1,4 +1,6 @@
 *
+!client/
+!server/
 !server/build
 !server/build/**
 !server/package*
