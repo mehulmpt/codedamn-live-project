@@ -13,9 +13,9 @@ jobs:
               with:
                   node-version: '14.8.0'
             - name: Build Server
-                env:
+              env:
                   NODE_ENV: production
-                run: |
+              run: |
                   cd server
                   yarn install --frozen-lockfile
                   tsc
