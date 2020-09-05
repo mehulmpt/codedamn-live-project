@@ -17,5 +17,6 @@ git remote add production ssh://$user@$AWS_HOST/~/webapp
 git push --force production master
 
 ssh $user@$AWS_HOST "cd ~/webapp && \
-pm2 restart /home/ubuntu/webapp/server/build/server.js
+pm2 kill
+pm2 start /home/ubuntu/webapp/server/build/server.js
 exit"
