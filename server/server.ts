@@ -13,9 +13,13 @@ const app = express()
 
 // mongoose.connect('mongodb://localhost:27017/codedamn-live')
 
-mongoose.connect(
-	'mongodb://admin:0O3lP2MRRmIVZ2WPlUaOPvIiNVDpZZh0aDBisdB2nQtPXB9Ao2oTgRMvG1F4Z6ayDcbj0W0wdkMh4tO25TF7XO7Y@localhost:27017/codedamn-live?authSource=admin'
-)
+if (process.env.NODE_ENV === 'production') {
+	mongoose.connect('mongodb://localhost:27017/codedamn-live')
+} else {
+	mongoose.connect(
+		'mongodb://admin:0O3lP2MRRmIVZ2WPlUaOPvIiNVDpZZh0aDBisdB2nQtPXB9Ao2oTgRMvG1F4Z6ayDcbj0W0wdkMh4tO25TF7XO7Y@localhost:27017/codedamn-live?authSource=admin'
+	)
+}
 
 if (process.env.NODE_ENV !== 'production') {
 	app.use(cors())
@@ -24,7 +28,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-	res.send('ok')
+	res.sendFile('')
 })
 
 app.post('/api/register', async (req, res) => {

@@ -15,13 +15,18 @@ require("./websocket");
 const utilities_1 = require("./utilities");
 const app = express_1.default();
 // mongoose.connect('mongodb://localhost:27017/codedamn-live')
-mongoose_1.default.connect('mongodb://admin:0O3lP2MRRmIVZ2WPlUaOPvIiNVDpZZh0aDBisdB2nQtPXB9Ao2oTgRMvG1F4Z6ayDcbj0W0wdkMh4tO25TF7XO7Y@localhost:27017/codedamn-live?authSource=admin');
+if (process.env.NODE_ENV === 'production') {
+    mongoose_1.default.connect('mongodb://localhost:27017/codedamn-live');
+}
+else {
+    mongoose_1.default.connect('mongodb://admin:0O3lP2MRRmIVZ2WPlUaOPvIiNVDpZZh0aDBisdB2nQtPXB9Ao2oTgRMvG1F4Z6ayDcbj0W0wdkMh4tO25TF7XO7Y@localhost:27017/codedamn-live?authSource=admin');
+}
 if (process.env.NODE_ENV !== 'production') {
     app.use(cors_1.default());
 }
 app.use(body_parser_1.default.json());
 app.get('/', (req, res) => {
-    res.send('ok');
+    res.sendFile('');
 });
 app.post('/api/register', async (req, res) => {
     console.log(req.body);
