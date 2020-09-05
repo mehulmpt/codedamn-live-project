@@ -2,6 +2,9 @@
 set -e
 user="ubuntu"
 
+ls -lah;
+pwd;
+
 rm -rf .git
 rm -rf .gitignore
 git config --global user.email "mehulmpt@gmail.com"
