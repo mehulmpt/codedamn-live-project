@@ -10,10 +10,10 @@ import jwt from 'jsonwebtoken'
 import './websocket'
 import { JWT_SECRET_TOKEN } from './utilities'
 const app = express()
+const PRODUCTION = process.env.NODE_ENV === 'production'
 
-// mongoose.connect('mongodb://localhost:27017/codedamn-live')
-
-if (process.env.NODE_ENV === 'production') {
+if (PRODUCTION) {
+	app.use('/', express.static('/home/ubuntu/webapp/client/build'))
 	mongoose.connect('mongodb://localhost:27017/codedamn-live')
 } else {
 	mongoose.connect(

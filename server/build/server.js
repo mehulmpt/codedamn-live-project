@@ -14,8 +14,9 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 require("./websocket");
 const utilities_1 = require("./utilities");
 const app = express_1.default();
-// mongoose.connect('mongodb://localhost:27017/codedamn-live')
-if (process.env.NODE_ENV === 'production') {
+const PRODUCTION = process.env.NODE_ENV === 'production';
+if (PRODUCTION) {
+    app.use('/', express_1.default.static('/home/ubuntu/webapp/client/build'));
     mongoose_1.default.connect('mongodb://localhost:27017/codedamn-live');
 }
 else {
