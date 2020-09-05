@@ -24,6 +24,7 @@ jobs:
                   NODE_ENV: production
               run: |
                   cd server
+                  yarn install --frozen-lockfile
                   tsc
             - name: Deploy on server
               env:
